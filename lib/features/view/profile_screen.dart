@@ -95,14 +95,14 @@
 
 import 'package:flutter/material.dart';
 
+import '../../utils/helper/auth_helper.dart';
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfile = {
-      "name": "Riazul Islam",
-      "email": "riazul24@gmail.com",
-      // "profileImage":
-      // "https://via.placeholder.com/150", // Placeholder for profile image
+      "name": "User",
+      "email": "user24@gmail.com",
     };
 
     return Scaffold(
@@ -116,7 +116,6 @@ class ProfileScreen extends StatelessWidget {
           children: [
             const CircleAvatar(
               radius: 50,
-               //backgroundImage: NetworkImage(userProfile["profileImage"]!),
             ),
             const SizedBox(height: 16),
             Text(
@@ -152,8 +151,9 @@ class ProfileScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
-              onTap: () {
-                // Logout logic
+              onTap: () async {
+                await AuthHelper.helper.signOut();
+                Navigator.pushNamed(context, '/signin');
               },
             ),
           ],

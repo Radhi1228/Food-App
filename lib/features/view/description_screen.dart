@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/utils/helper/shared_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../utils/model/app_models.dart';
 import '../bloc/food_bloc.dart';
 import '../bloc/food_state.dart';
 import '../cart_bloc/cart_bloc.dart';
@@ -19,6 +22,8 @@ import '../cart_bloc/cart_bloc.dart';
 // }
 
 class FoodDescriptionScreen extends StatefulWidget {
+  const FoodDescriptionScreen({super.key});
+
   @override
   State<FoodDescriptionScreen> createState() => _FoodDescriptionScreenState();
 }
@@ -28,7 +33,6 @@ class _FoodDescriptionScreenState extends State<FoodDescriptionScreen> {
   void initState() {
     super.initState();
   }
-  // final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -77,19 +81,73 @@ class _FoodDescriptionScreenState extends State<FoodDescriptionScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        context.read<CartBloc>().setBookMark(product.name,product.imageUrl);
-                        //context.read<HomeProvider>().setBookMark(p1!.name!, p1!.image!);
-                        print("------------${product}");
-                        cubit.addCardItem(product);
-                        print('cubit value=>${cubit.state.cartItems.length}');
-                        print('cubit value=>${cubit.state.cartItems}');
-                        Navigator.pushNamed(context, "/cart");
-                        //Navigator.pushNamed(context, "/cart");
-                        // Navigator.push(context,"");
+                      onPressed: () async {
+                        CartItem cartItem = CartItem(
+                          name: product.name,
+                          imageUrl: product.imageUrl,
+                          price: product.price,
+                          quantity: product.quantity,
+                        );
+
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        List<String> cartItemsJson = prefs.getStringList('cartItems') ?? [];
+
+                        bool itemExists = cartItemsJson.any((item) {
+                          CartItem existingItem = CartItem.fromJson(item);
+                          return existingItem.name == cartItem.name;
+                        });
+
+                        if (!itemExists) {
+                          cartItemsJson.add(cartItem.toJson());
+                          await prefs.setStringList('cartItems', cartItemsJson);
+
+                          print("Item added to cart: ${cartItem.name}");
+                          Navigator.pushNamed(context, "/cart");
+                        } else {
+                          print("Item is already in the cart: ${cartItem.name}");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("${cartItem.name} is already in the cart"),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
                       },
                       child: const Text("Add to Cart"),
                     ),
+
+                    // ElevatedButton(
+                    //   onPressed: () async {
+                    //     CartItem cartItem = CartItem(
+                    //         name: product.name,
+                    //         imageUrl: product.imageUrl,
+                    //         price: product.price,
+                    //         quantity: product.quantity);
+                    //
+                    //     SharedPreferences prefs =
+                    //         await SharedPreferences.getInstance();
+                    //     List<String> cartItemsJson =
+                    //         prefs.getStringList('cartItems') ?? [];
+                    //
+                    //     cartItemsJson.add(cartItem.toJson());
+                    //     await prefs.setStringList('cartItems', cartItemsJson);
+                    //
+                    //     print("Item added to cart: ${cartItem.name}");
+                    //     Navigator.pushNamed(context, "/cart");
+                    //   },
+                    //   // onPressed: () {
+                    //   //   context.read<CartBloc>().setBookMark(product.name,product.imageUrl);
+                    //   //   //context.read<HomeProvider>().setBookMark(p1!.name!, p1!.image!);
+                    //   //   print("------------${product}");
+                    //   //   cubit.addCardItem(product);
+                    //   //   print('cubit value=>${cubit.state.cartItems.length}');
+                    //   //   print('cubit value=>${cubit.state.cartItems}');
+                    //   //   Navigator.pushNamed(context, "/cart");
+                    //   //   //Navigator.pushNamed(context, "/cart");
+                    //   //   // Navigator.push(context,"");
+                    //   // },
+                    //   child: const Text("Add to Cart"),
+                    // ),
                   ],
                 ),
               ],

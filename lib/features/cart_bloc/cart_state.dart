@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'cart_bloc.dart';
 
 class CartState extends Equatable {
-  final List<Product> cartItems;
+  final List<ProductM> cartItems;
   final String subtotal;
   final String discount;
   final String shipping;
@@ -21,13 +21,13 @@ class CartState extends Equatable {
   });
 
   CartState copyWith({
-    List<Product>? cartItems,
+    List<ProductM>? cartItems,
     String? subtotal,
     String? discount,
     String? shipping,
     String? total,
-    required List<String> imageList,
-    required List<String> nameList,
+     List<String>? imageList,
+     List<String>? nameList,
   }) {
     return CartState(
       cartItems: cartItems ?? this.cartItems,
@@ -35,8 +35,8 @@ class CartState extends Equatable {
       discount: discount ?? this.discount,
       shipping: shipping ?? this.shipping,
       total: total ?? this.total,
-      imageList: imageList,
-      nameList: nameList,
+      imageList: imageList??this.imageList,
+      nameList: nameList??this.nameList,
     );
   }
 

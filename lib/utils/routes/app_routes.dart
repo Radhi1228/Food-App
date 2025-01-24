@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/features/view/cart_screen.dart';
 import 'package:food_app/features/view/description_screen.dart';
-import 'package:food_app/features/view/home_screen.dart';
+import 'package:food_app/features/view/home/home_screen.dart';
 import 'package:food_app/features/view/profile_screen.dart';
 import 'package:food_app/features/view/sign_in_screen.dart';
 import 'package:food_app/features/view/sign_up_screen.dart';

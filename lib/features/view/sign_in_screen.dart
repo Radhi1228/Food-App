@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/features/view/sign_up_screen.dart';
 import '../../utils/helper/auth_helper.dart';
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
