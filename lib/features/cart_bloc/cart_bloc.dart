@@ -56,7 +56,7 @@ class ProductM {
   }
 }
 
-// ---------- Cart Bloc ----------
+// Cart Bloc
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState(imageList: const [], nameList: const [])) {
     on<AddItem>(onAddQuantity);
@@ -123,7 +123,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final updatedCart = List<ProductM>.from(state.cartItems)..removeAt(index);
     emit(state.copyWith(cartItems: updatedCart));
   }
-
 
   void onRemoveItem(RemoveItem event, Emitter<CartState> emit) {
     final updatedCart = state.cartItems.where((item) {

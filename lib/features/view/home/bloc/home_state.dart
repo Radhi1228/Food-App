@@ -1,10 +1,6 @@
 /*class FoodState {}
 class Category extends FoodState{
 }*/
-
-import '../../utils/model/app_models.dart';
-import '../cart_bloc/cart_bloc.dart';
-
 class HomeState {
   final List<String> categories;
   // final List<ProductModel> topPicks;
@@ -40,17 +36,3 @@ class HomeState {
     );
   }
 }
-// // ------------- Product Model --------
-// class ProductModel {
-//   final String name;
-//   final String price;
-//   final String imageUrl;
-//   final String description;
-//
-//   ProductModel({
-//     required this.name,
-//     required this.price,
-//     required this.imageUrl,
-//     required this.description,
-//   });
-// }

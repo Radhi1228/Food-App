@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../utils/helper/shared_helper.dart';
-import '../../utils/model/app_models.dart';
-import 'food_event.dart';
-import 'food_state.dart';
+import '../../../../utils/helper/shared_helper.dart';
+import 'home_event.dart';
+import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc()
@@ -82,7 +81,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           nameList: [],
         )) {
     on<LoadHomeData>((event, emit) {
-      // Optionally load data
     });
 
     on<SelectCategory>((event, emit) {

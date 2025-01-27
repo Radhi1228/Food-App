@@ -54,4 +54,17 @@ class AuthHelper {
       return "Login failed try again";
     }
   }
+  Future<bool> reAuthenticateUser(String email, String currentPassword) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: currentPassword,
+      );
+      await auth.currentUser?.reauthenticateWithCredential(credential);
+      return true;
+    } catch (e) {
+      print('ReAuthentication failed: $e');
+      return false;
+    }
+  }
 }

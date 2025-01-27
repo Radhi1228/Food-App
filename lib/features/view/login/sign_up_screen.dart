@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/helper/auth_helper.dart';
+import '../../../utils/helper/auth_helper.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -25,7 +25,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
                   height: 40,

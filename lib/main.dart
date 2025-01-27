@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_app/features/bloc/food_bloc.dart';
 import 'package:food_app/features/cart_bloc/cart_bloc.dart';
+import 'package:food_app/features/view/cart/bloc/cart_bloc.dart';
+import 'package:food_app/utils/helper/firedb_helper.dart';
 import 'package:food_app/utils/routes/app_routes.dart';
-import 'features/bloc/food_state.dart';
+import 'features/view/home/bloc/home_bloc.dart';
+import 'features/view/home/bloc/home_state.dart';
 import 'firebase_options.dart';
 
 Future<void> main()
@@ -40,6 +42,9 @@ class _FoodAppState extends State<FoodApp> {
        ),
        BlocProvider<CartBloc>(
          create: (BuildContext context) => CartBloc(),
+       ),
+       BlocProvider<CartItemBloc>(
+         create: (BuildContext context) => CartItemBloc(FireDbHelper.helper),
        ),
      ],
       child: BlocBuilder<HomeBloc,HomeState>
